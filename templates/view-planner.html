@@ -1,0 +1,90 @@
+<!--
+  ============================================================================
+  HIGHWAYPULSE — MAINTENANCE WORK ORDER PLANNER (templates/view-planner.html)
+  ============================================================================
+  PURPOSE & FUNCTIONALITY:
+  Operational scheduling board for dispatching repair crews and tracking work orders.
+  Features included in this template:
+  - Work order status summary counters (Scheduled, In Progress, Completed)
+  - Schedule Work Order button launching task creation modal
+  - Filter controls by assigned crew, priority, and completion status
+  - Work order task table with crew assignment, dates, duration, and status
+  - Controlled and updated by js/planner.js
+  ============================================================================
+-->
+<section id="view-planner" class="view-section">
+          <!-- Workload Summary Cards -->
+          <div class="planner-summary-grid" id="planner-summary-cards">
+            <!-- Populated via PlannerModule -->
+          </div>
+
+          <!-- Schedule Conflicts Banner -->
+          <div id="planner-conflicts-container" class="mb-4" style="display: none;"></div>
+
+          <!-- Planner Toolbar -->
+          <div class="toolbar-card">
+            <div class="flex justify-between items-center flex-wrap gap-3">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-xs font-bold text-muted uppercase">Filter Tasks:</span>
+                <select id="filter-planner-status" class="form-select text-xs py-1" style="width: 150px;">
+                  <option value="all">All Task Statuses</option>
+                  <option value="overdue">⚠ Overdue Tasks Only</option>
+                  <option value="Planned">Planned</option>
+                  <option value="Scheduled">Scheduled</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Completed">Completed</option>
+                  <option value="On Hold">On Hold</option>
+                </select>
+
+                <select id="filter-planner-priority" class="form-select text-xs py-1" style="width: 140px;">
+                  <option value="all">All Priorities</option>
+                  <option value="Critical">Critical</option>
+                  <option value="High">High</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Low">Low</option>
+                </select>
+
+                <select id="filter-planner-team" class="form-select text-xs py-1" style="width: 160px;">
+                  <!-- Populated via PlannerModule -->
+                </select>
+              </div>
+
+              <div class="flex gap-2">
+                <button class="btn btn-sm btn-primary" id="btn-new-task">
+                  + Schedule Work Order
+                </button>
+                <button class="btn btn-sm btn-outline" id="btn-export-tasks-csv">
+                  Export Schedule CSV
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Planner Table Card -->
+          <div class="card">
+            <div class="table-scroll-hint">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+              <span>Swipe / scroll schedule table horizontally to view all columns</span>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Task ID</th>
+                    <th>Related Defect</th>
+                    <th>Corridor / Highway</th>
+                    <th>Priority</th>
+                    <th>Assigned Crew</th>
+                    <th>Start Date</th>
+                    <th>Target Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="planner-table-body">
+                  <!-- Populated via PlannerModule -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>

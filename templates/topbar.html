@@ -1,0 +1,39 @@
+<!--
+  ============================================================================
+  HIGHWAYPULSE — APPLICATION TOPBAR HEADER COMPONENT (templates/topbar.html)
+  ============================================================================
+  PURPOSE & FUNCTIONALITY:
+  This file defines the sticky global header navigation bar.
+  Features included in this template:
+  - Mobile hamburger toggle button to open sidebar navigation on mobile/tablet
+  - Live route breadcrumb title (#page-title and #page-breadcrumb)
+  - Current system operational date display (#system-date-display)
+  - Global search bar with enter-to-search functionality (#global-search-input)
+  - Real-time alert notifications bell with badge and quick alert dropdown
+  - Quick theme toggle button to switch between Light and Dark mode
+  ============================================================================
+-->
+<header class="topbar">
+        <div class="topbar-left">
+          <button class="btn-mobile-menu" id="btn-mobile-menu" aria-label="Toggle navigation drawer">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+          <div class="topbar-page-info">
+            <h1 class="topbar-page-title" id="page-title-text">Overview Dashboard</h1>
+            <span class="topbar-page-sub" id="page-subtitle-text">Corridor Safety & Defect Monitoring</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Global Quick Search -->
+          <div class="topbar-search-box">
+            <svg class="topbar-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="topbar-search-input" class="topbar-search-input" placeholder="Quick search defects..." aria-label="Search defects across database" />
+          </div>
+
+          <!-- Theme Toggle -->
+          <button class="topbar-btn" id="btn-theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
+            <!-- Icon populated dynamically -->
+          </button>
+        </div>
+      </header>

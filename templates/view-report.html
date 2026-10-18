@@ -1,0 +1,224 @@
+<!--
+  ============================================================================
+  HIGHWAYPULSE — DEFECT INTAKE & REPORTING WIZARD (templates/view-report.html)
+  ============================================================================
+  PURPOSE & FUNCTIONALITY:
+  Step-by-step intake form for field engineers to report highway damage.
+  Features included in this template:
+  - Highway corridor and mile marker / location inputs
+  - Defect category selection (Pothole, Crack, Rutting, Guardrail, Drainage, etc.)
+  - Interactive GPS latitude / longitude inputs with sample coordinate buttons
+  - Severity, traffic exposure, and safety hazard range sliders
+  - Real-time priority score computation live preview card
+  - Photo upload file picker with preview thumbnail
+  - Controlled and updated by js/form.js
+  ============================================================================
+-->
+<section id="view-report" class="view-section">
+          <!-- Success Notification Banner -->
+          <div id="form-success-banner" class="mb-4" style="display: none;"></div>
+
+          <div class="form-layout-grid">
+            <!-- Left: Form Input Card -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Log Field Defect Observation</h3>
+                  <p class="card-subtitle">Enter highway location, structural damage rating, and exposure factors</p>
+                </div>
+              </div>
+
+              <form id="report-defect-form" novalidate>
+                <div class="grid grid-cols-1 gap-3">
+
+                  <!-- Road / Corridor Name -->
+                  <div class="form-group">
+                    <label class="form-label" for="form-road">Highway Corridor / Road Name <span class="text-red">*</span></label>
+                    <input type="text" id="form-road" class="form-input" list="corridor-datalist" placeholder="e.g. NH 44 (Delhi–Agra Corridor)" required />
+                    <datalist id="corridor-datalist">
+                      <option value="NH 44 (Srinagar–Kanyakumari Corridor)"></option>
+                      <option value="NH 48 (Delhi–Mumbai Corridor)"></option>
+                      <option value="NH 16 (Chennai–Kolkata Coastal Highway)"></option>
+                      <option value="NH 27 (East–West Corridor)"></option>
+                      <option value="NH 66 (Panvel–Kochi Coastal Corridor)"></option>
+                      <option value="NH 19 (Delhi–Kolkata Grand Trunk)"></option>
+                      <option value="NH 52 (Jaipur–Kota Corridor)"></option>
+                      <option value="NH 53 (Nagpur–Raipur Corridor)"></option>
+                    </datalist>
+                    <span class="form-error" id="error-form-road"></span>
+                  </div>
+
+                  <!-- Location Description -->
+                  <div class="form-group">
+                    <label class="form-label" for="form-location">Chainage Marker & Landmark <span class="text-red">*</span></label>
+                    <input type="text" id="form-location" class="form-input" placeholder="e.g. km 142.4 Southbound near Toll Plaza" required />
+                    <span class="form-error" id="error-form-location"></span>
+                  </div>
+
+                  <!-- Coordinates with Quick Fill -->
+                  <div class="form-group">
+                    <div class="flex justify-between items-center mb-1">
+                      <label class="form-label">Geographic Coordinates (Lat / Lng)</label>
+                      <button type="button" class="btn btn-xs btn-outline" id="btn-quick-sample-coords">
+                        Fill Sample Indian Coordinates
+                      </button>
+                    </div>
+                    <div class="flex gap-2">
+                      <div class="flex-1">
+                        <input type="number" step="any" id="form-latitude" class="form-input text-xs" placeholder="Latitude (e.g. 27.1852)" />
+                        <span class="form-error" id="error-form-latitude"></span>
+                      </div>
+                      <div class="flex-1">
+                        <input type="number" step="any" id="form-longitude" class="form-input text-xs" placeholder="Longitude (e.g. 78.0125)" />
+                        <span class="form-error" id="error-form-longitude"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Category & Assigned Team -->
+                  <div class="flex gap-3 flex-wrap">
+                    <div class="form-group flex-1" style="min-width: 200px;">
+                      <label class="form-label" for="form-category">Defect Category <span class="text-red">*</span></label>
+                      <select id="form-category" class="form-select" required>
+                        <option value="">-- Select Category --</option>
+                        <option value="Pothole">Pothole</option>
+                        <option value="Pavement Cracking">Pavement Cracking</option>
+                        <option value="Surface Deterioration">Surface Deterioration</option>
+                        <option value="Damaged Road Signage">Damaged Road Signage</option>
+                        <option value="Guardrail Damage">Guardrail Damage</option>
+                        <option value="Drainage Problem">Drainage Problem</option>
+                        <option value="Road Marking Issue">Road Marking Issue</option>
+                        <option value="Other">Other Distress</option>
+                      </select>
+                      <span class="form-error" id="error-form-category"></span>
+                    </div>
+
+                    <div class="form-group flex-1" style="min-width: 200px;">
+                      <label class="form-label" for="form-team">Assigned Maintenance Unit</label>
+                      <select id="form-team" class="form-select">
+                        <option value="Team North Alpha">Team North Alpha</option>
+                        <option value="Team West Bravo">Team West Bravo</option>
+                        <option value="Team South Charlie">Team South Charlie</option>
+                        <option value="Rapid Patch Unit 1">Rapid Patch Unit 1</option>
+                        <option value="Structural Inspection Crew">Structural Inspection Crew</option>
+                        <option value="Drainage Works Unit">Drainage Works Unit</option>
+                        <option value="Corridor Alpha Crew">Corridor Alpha Crew</option>
+                        <option value="Unassigned">Unassigned (Queue for Triage)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Description -->
+                  <div class="form-group">
+                    <label class="form-label" for="form-description">Field Observations & Description <span class="text-red">*</span></label>
+                    <textarea id="form-description" rows="3" class="form-textarea" placeholder="Detail the dimensions, lane position, distress severity, and immediate hazards..." required></textarea>
+                    <span class="form-error" id="error-form-description"></span>
+                  </div>
+
+                  <!-- Sliders Section -->
+                  <div class="p-3 bg-surface-subtle rounded mt-2 border">
+                    <h4 class="text-xs font-bold text-muted uppercase mb-3">Multi-Factor Heuristic Ratings (0 – 100)</h4>
+
+                    <!-- Severity Slider (40%) -->
+                    <div class="form-group mb-3">
+                      <div class="flex justify-between items-center">
+                        <label class="form-label" for="form-severity">1. Structural Severity (Weight: 40%)</label>
+                        <span class="text-xs font-mono font-bold text-blue"><span id="val-severity">75</span> / 100</span>
+                      </div>
+                      <div class="range-slider-wrapper">
+                        <input type="range" id="form-severity" class="form-range" min="0" max="100" value="75" />
+                      </div>
+                      <span class="text-2xs text-dim">Extent of structural pavement destruction or physical barrier failure.</span>
+                    </div>
+
+                    <!-- Traffic Exposure Slider (25%) -->
+                    <div class="form-group mb-3">
+                      <div class="flex justify-between items-center">
+                        <label class="form-label" for="form-traffic">2. Traffic Exposure (Weight: 25%)</label>
+                        <span class="text-xs font-mono font-bold text-blue"><span id="val-traffic">70</span> / 100</span>
+                      </div>
+                      <div class="range-slider-wrapper">
+                        <input type="range" id="form-traffic" class="form-range" min="0" max="100" value="70" />
+                      </div>
+                      <span class="text-2xs text-dim">Average daily traffic volume, vehicle speeds, and lane position.</span>
+                    </div>
+
+                    <!-- Safety Risk Slider (25%) -->
+                    <div class="form-group mb-3">
+                      <div class="flex justify-between items-center">
+                        <label class="form-label" for="form-safety">3. Safety Hazard Risk (Weight: 25%)</label>
+                        <span class="text-xs font-mono font-bold text-blue"><span id="val-safety">80</span> / 100</span>
+                      </div>
+                      <div class="range-slider-wrapper">
+                        <input type="range" id="form-safety" class="form-range" min="0" max="100" value="80" />
+                      </div>
+                      <span class="text-2xs text-dim">Probability of motorist loss-of-control, tire blowout, or collision.</span>
+                    </div>
+
+                    <!-- Date Reported -->
+                    <div class="form-group">
+                      <div class="flex justify-between items-center">
+                        <label class="form-label" for="form-date">4. Date Reported (Time Unresolved Weight: 10%)</label>
+                      </div>
+                      <input type="date" id="form-date" class="form-input text-xs" style="max-width: 200px;" required />
+                      <span class="form-error" id="error-form-date"></span>
+                      <span class="text-2xs text-dim">Time elapsed automatically scales the dwell-time penalty score.</span>
+                    </div>
+                  </div>
+
+                  <!-- Form Action Buttons -->
+                  <div class="flex gap-2 justify-end mt-3">
+                    <button type="reset" class="btn btn-sm btn-outline">Reset Form</button>
+                    <button type="submit" class="btn btn-primary">Submit Defect Record</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Right: Interactive Real-Time Score Preview Card -->
+            <div>
+              <div class="preview-score-card">
+                <h3 class="card-title">Live Priority Score Preview</h3>
+                <p class="card-subtitle">Dynamically computed as rating sliders adjust</p>
+
+                <div class="preview-score-display">
+                  <div>
+                    <span class="text-xs text-muted uppercase font-bold">Calculated Score</span>
+                    <div class="preview-score-number" id="preview-score-value">75</div>
+                  </div>
+                  <div id="preview-badge-container">
+                    <!-- Populated via FormModule -->
+                  </div>
+                </div>
+
+                <div class="score-breakdown-list mt-3">
+                  <div class="text-xs font-bold text-muted uppercase mb-2">Weight Contribution</div>
+                  <div class="flex justify-between text-xs py-1 border-b">
+                    <span>Severity (40%)</span>
+                    <strong class="font-mono" id="preview-contrib-severity">30.0 pts</strong>
+                  </div>
+                  <div class="flex justify-between text-xs py-1 border-b">
+                    <span>Traffic Exposure (25%)</span>
+                    <strong class="font-mono" id="preview-contrib-traffic">17.5 pts</strong>
+                  </div>
+                  <div class="flex justify-between text-xs py-1 border-b">
+                    <span>Safety Risk (25%)</span>
+                    <strong class="font-mono" id="preview-contrib-safety">20.0 pts</strong>
+                  </div>
+                  <div class="flex justify-between text-xs py-1 border-b">
+                    <span>Time Unresolved (10%)</span>
+                    <strong class="font-mono" id="preview-contrib-time">0.0 pts</strong>
+                  </div>
+                </div>
+
+                <div class="mt-4 p-3 bg-surface-subtle rounded border text-xs text-muted leading-relaxed">
+                  <strong>Heuristic Classification Tiers:</strong><br/>
+                  • <strong>Critical (80–100):</strong> Immediate safety hazard.<br/>
+                  • <strong>High (60–79):</strong> Schedule work order within 7 days.<br/>
+                  • <strong>Medium (35–59):</strong> Routine maintenance queue.<br/>
+                  • <strong>Low (0–34):</strong> Monitor during regular patrols.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>

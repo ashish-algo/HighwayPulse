@@ -1,0 +1,107 @@
+<!--
+  ============================================================================
+  HIGHWAYPULSE — APPLICATION MODAL DIALOGS (templates/modals.html)
+  ============================================================================
+  PURPOSE & FUNCTIONALITY:
+  Reusable modal dialog overlays for defect inspection and work order scheduling.
+  Modals included in this template:
+  1. Defect Detail Inspector Modal (#defect-detail-modal):
+     - Displays complete defect attributes, live priority breakdown, and notes
+     - Allows updating status, reassigning crew, and scheduling maintenance
+  2. Maintenance Work Order Modal (#task-modal):
+     - Form to schedule repairs, set dates, estimated hours, and crew instructions
+  ============================================================================
+-->
+  <div class="modal" id="defect-detail-modal" role="dialog" aria-modal="true" aria-labelledby="defect-detail-title">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="defect-detail-title">Defect Inspection & Assessment</h3>
+        <button class="btn-close-modal btn btn-xs btn-outline" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <!-- Populated dynamically via DefectsModule -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-outline btn-close-modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       Modal Dialog: Create / Edit Maintenance Task
+       ==================================================================== -->
+  <div class="modal" id="task-modal" role="dialog" aria-modal="true" aria-labelledby="task-modal-title">
+    <div class="modal-backdrop"></div>
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="task-modal-title">Schedule Maintenance Work Order</h3>
+        <button class="btn-close-modal btn btn-xs btn-outline" aria-label="Close modal">✕</button>
+      </div>
+      <form id="task-form">
+        <div class="modal-body">
+          <input type="hidden" id="task-id-input" value="" />
+
+          <div class="form-group mb-3">
+            <label class="form-label" for="task-defect-select">Target Defect Record <span class="text-red">*</span></label>
+            <select id="task-defect-select" class="form-select text-xs" required>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="form-label" for="task-road-input">Corridor / Road Section</label>
+            <input type="text" id="task-road-input" class="form-input text-xs" readonly />
+          </div>
+
+          <div class="flex gap-2 mb-3">
+            <div class="form-group flex-1">
+              <label class="form-label" for="task-priority-select">Work Order Priority</label>
+              <select id="task-priority-select" class="form-select text-xs">
+                <option value="Critical">Critical</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+            <div class="form-group flex-1">
+              <label class="form-label" for="task-team-select">Assigned Maintenance Crew</label>
+              <select id="task-team-select" class="form-select text-xs">
+                <option value="Team North Alpha">Team North Alpha</option>
+                <option value="Team West Bravo">Team West Bravo</option>
+                <option value="Team South Charlie">Team South Charlie</option>
+                <option value="Rapid Patch Unit 1">Rapid Patch Unit 1</option>
+                <option value="Structural Inspection Crew">Structural Inspection Crew</option>
+                <option value="Drainage Works Unit">Drainage Works Unit</option>
+                <option value="Corridor Alpha Crew">Corridor Alpha Crew</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-3">
+            <div class="form-group flex-1">
+              <label class="form-label" for="task-start-date">Planned Start Date</label>
+              <input type="date" id="task-start-date" class="form-input text-xs" required />
+            </div>
+            <div class="form-group flex-1">
+              <label class="form-label" for="task-end-date">Target Completion Date <span class="text-red">*</span></label>
+              <input type="date" id="task-end-date" class="form-input text-xs" required />
+            </div>
+            <div class="form-group" style="width: 100px;">
+              <label class="form-label" for="task-duration">Est. Hours</label>
+              <input type="number" id="task-duration" class="form-input text-xs" min="1" max="200" value="16" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="task-notes">Work Order Notes & Crew Instructions</label>
+            <textarea id="task-notes" class="form-textarea text-xs" rows="2" placeholder="Detail lane closure requirements, material specs, or machinery needed..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-outline btn-close-modal">Cancel</button>
+          <button type="submit" class="btn btn-sm btn-primary">Save Work Order</button>
+        </div>
+      </form>
+    </div>
+  </div>

@@ -1,0 +1,67 @@
+<!--
+  ============================================================================
+  HIGHWAYPULSE — ENGINEERING FORMULAS & DOCUMENTATION (templates/view-about.html)
+  ============================================================================
+  PURPOSE & FUNCTIONALITY:
+  Educational reference explaining the mathematics and heuristics behind HighwayPulse.
+  Features included in this template:
+  - Priority Calculation Formula breakdown with variable explanations
+  - Multi-tier priority threshold classification table
+  - Maintenance response SLA benchmarks for highway authorities
+  - Complete software architecture documentation
+  ============================================================================
+-->
+<section id="view-about" class="view-section">
+          <div class="card" style="max-width: 860px;">
+            <div class="border-b pb-3 mb-4">
+              <div class="flex items-center gap-2">
+                <h2 class="text-xl font-bold text-navy">HighwayPulse</h2>
+              </div>
+              <p class="text-sm text-muted mt-1">Highway Defect Prioritization & Maintenance Planning Dashboard</p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 text-sm leading-relaxed text-slate">
+              <div>
+                <h4 class="font-bold text-navy mb-1">1. Project Purpose & Problem Statement</h4>
+                <p>
+                  Highways form the backbone of national transit, yet road authorities face thousands of concurrent defects—from minor potholes to critical guardrail failures. Maintenance funds and field crews are finite. <strong>HighwayPulse</strong> is an engineering dashboard developed to address this challenge: it systematically evaluates defects against multiple operational criteria to generate a transparent, explainable priority score that assists maintenance teams in allocating resources effectively.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-navy mb-1">2. Core Architectural Pillars</h4>
+                <ul style="padding-left: 1.25rem; list-style-type: disc;">
+                  <li><strong>Zero Framework Overhead:</strong> Built strictly with semantic HTML5, modern CSS3, and modular Vanilla JavaScript. Runs locally by opening <code>index.html</code> directly.</li>
+                  <li><strong>Multi-Criteria Scoring Engine:</strong> Deterministic 4-factor heuristic combining Severity (40%), Traffic Exposure (25%), Safety Risk (25%), and Dwell Time (10%).</li>
+                  <li><strong>Geographic Defect Tracking:</strong> Leaflet.js interactive map plotting corridor coordinates across India with priority color coding.</li>
+                  <li><strong>Maintenance Work Order Planning:</strong> Workload scheduling, milestone tracking, and crew conflict detection.</li>
+                  <li><strong>Resilient Offline Fallback:</strong> If Leaflet or Chart.js CDN assets are unavailable, the application gracefully renders tabular and pure-CSS visual fallbacks without crashing.</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-navy mb-1">3. Prioritization Formula & Heuristic Math</h4>
+                <p class="font-mono text-xs bg-surface-subtle p-3 rounded border">
+                  Priority Score = (Severity × 0.40) + (Traffic Exposure × 0.25) + (Safety Risk × 0.25) + (Time Unresolved × 0.10)
+                </p>
+                <p class="text-xs text-muted mt-1">
+                  Classifications: Critical (80–100), High (60–79), Medium (35–59), Low (0–34).
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-navy mb-1">4. Sample Data & Independent Disclaimer</h4>
+                <div class="alert-box alert-warning">
+                  <span class="alert-icon">ℹ</span>
+                  <div>
+                    <strong>Independent Educational Student Prototype</strong>
+                    <p class="text-xs mt-1">
+                      All road names, defect records, and coordinates within this application are fictional and created solely for portfolio demonstration. HighwayPulse is not affiliated with, certified by, or officially endorsed by the National Highways Authority of India (NHAI), Ministry of Road Transport and Highways (MoRTH), or any government transportation agency.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>

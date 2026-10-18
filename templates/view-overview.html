@@ -1,0 +1,111 @@
+<!--
+  ============================================================================
+  HIGHWAYPULSE — EXECUTIVE DASHBOARD VIEW (templates/view-overview.html)
+  ============================================================================
+  PURPOSE & FUNCTIONALITY:
+  Main overview dashboard showing real-time road condition telemetry.
+  Features included in this template:
+  - Emergency critical hazard alert banner with quick-review link
+  - 4 Executive KPI stat cards: Active Defects, Critical Hazards, Avg Priority, Active Crews
+  - Urgent maintenance queue with quick inspection modal triggers
+  - Rapid workflow shortcut buttons to report defects, inspect map, or schedule repairs
+  - Controlled and updated by js/dashboard.js
+  ============================================================================
+-->
+<section id="view-overview" class="view-section view-active">
+          <!-- 6 KPI Cards -->
+          <div class="kpi-grid" id="dashboard-kpis">
+            <!-- Populated via DashboardModule -->
+          </div>
+
+          <!-- Critical Items Triage Banner -->
+          <div id="critical-alerts-container" class="critical-alerts-container">
+            <!-- Populated via DashboardModule -->
+          </div>
+
+          <!-- 4 Analytical Charts Grid -->
+          <div class="charts-grid">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Defect Priority Breakdown</h3>
+                  <p class="card-subtitle">Distribution by heuristic severity classification</p>
+                </div>
+              </div>
+              <div class="chart-container">
+                <canvas id="chart-priority"></canvas>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Category Distribution</h3>
+                  <p class="card-subtitle">Frequency across highway asset classifications</p>
+                </div>
+              </div>
+              <div class="chart-container">
+                <canvas id="chart-category"></canvas>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Monthly Defect Inflow</h3>
+                  <p class="card-subtitle">Volume of defects registered over time</p>
+                </div>
+              </div>
+              <div class="chart-container">
+                <canvas id="chart-trend"></canvas>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Resolution Workflow Status</h3>
+                  <p class="card-subtitle">Current stage of repair lifecycle</p>
+                </div>
+              </div>
+              <div class="chart-container">
+                <canvas id="chart-status"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Defects Table Card -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Recent Inspection Reports</h3>
+                <p class="card-subtitle">Latest highway defects recorded in the field</p>
+              </div>
+              <button class="btn btn-sm btn-outline" onclick="App.navigateTo('defects')">
+                View All Defects →
+              </button>
+            </div>
+            <div class="table-scroll-hint">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+              <span>Swipe / scroll table horizontally to view all columns</span>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Defect ID</th>
+                    <th>Highway / Location</th>
+                    <th>Category</th>
+                    <th>Priority</th>
+                    <th>Reported Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="recent-defects-body">
+                  <!-- Populated via DashboardModule -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>

@@ -1,0 +1,121 @@
+<!--
+  ============================================================================
+  HIGHWAYPULSE — DEFECT DIRECTORY & MANAGEMENT VIEW (templates/view-defects.html)
+  ============================================================================
+  PURPOSE & FUNCTIONALITY:
+  Comprehensive directory for tracking, filtering, and sorting highway defects.
+  Features included in this template:
+  - Multi-criteria filter controls: Search, Highway Corridor, Severity, Status
+  - Dynamic data table with sortable columns and color-coded status badges
+  - Action triggers for defect inspection modal and work order scheduling
+  - CSV export button to download defect data
+  - Pagination controls with configurable items per page
+  - Controlled and updated by js/defects.js
+  ============================================================================
+-->
+<section id="view-defects" class="view-section">
+          <!-- Toolbar Card -->
+          <div class="toolbar-card">
+            <div class="filter-grid">
+              <div class="form-group" style="grid-column: span 1;">
+                <label class="form-label">Search Records</label>
+                <input type="text" id="defect-search-input" class="form-input text-xs" placeholder="Search by ID, corridor, team..." />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Priority Filter</label>
+                <select id="filter-defect-priority" class="form-select text-xs">
+                  <option value="all">All Priorities</option>
+                  <option value="Critical">Critical (80–100)</option>
+                  <option value="High">High (60–79)</option>
+                  <option value="Medium">Medium (35–59)</option>
+                  <option value="Low">Low (0–34)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Workflow Status</label>
+                <select id="filter-defect-status" class="form-select text-xs">
+                  <option value="all">All Statuses</option>
+                  <option value="Open">Open</option>
+                  <option value="Under Review">Under Review</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Resolved">Resolved</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Category</label>
+                <select id="filter-defect-category" class="form-select text-xs">
+                  <!-- Populated dynamically -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Corridor</label>
+                <select id="filter-defect-road" class="form-select text-xs">
+                  <!-- Populated dynamically -->
+                </select>
+              </div>
+
+              <div class="flex gap-2">
+                <button class="btn btn-sm btn-outline flex-1" id="btn-reset-defect-filters" title="Reset all filters">
+                  Reset
+                </button>
+                <button class="btn btn-sm btn-secondary" id="btn-export-defects-csv" title="Export matching records to CSV">
+                  Export CSV
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Defects Table Card -->
+          <div class="card" id="defects-table-wrapper">
+            <div class="table-scroll-hint">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+              <span>Swipe / scroll table horizontally to view all 12 columns</span>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Defect ID</th>
+                    <th>Highway / Location</th>
+                    <th>Category</th>
+                    <th class="text-center th-sortable" data-sort-field="severity" title="Sort by Severity">Sev</th>
+                    <th class="text-center" title="Traffic Volume Rating">Traf</th>
+                    <th class="text-center" title="Safety Hazard Rating">Risk</th>
+                    <th class="text-center th-sortable" data-sort-field="priorityScore" title="Sort by Priority Score">Score</th>
+                    <th>Priority</th>
+                    <th class="th-sortable" data-sort-field="reportedDate" title="Sort by Reported Date">Reported</th>
+                    <th class="th-sortable" data-sort-field="status" title="Sort by Status">Status</th>
+                    <th>Assigned Team</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="defects-table-body">
+                  <!-- Populated via DefectsModule -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination Bar -->
+            <div class="pagination-wrapper">
+              <div class="flex items-center gap-3">
+                <span class="text-xs text-muted" id="defect-page-info">Showing 0 records</span>
+                <div class="flex items-center gap-1 text-xs text-muted">
+                  <span>Page Size:</span>
+                  <select id="defect-page-size" class="form-select text-xs py-0 px-2" style="width: auto;">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="all">All</option>
+                  </select>
+                </div>
+              </div>
+              <div class="pagination-controls" id="defect-pagination-controls">
+                <!-- Populated via DefectsModule -->
+              </div>
+            </div>
+          </div>
+        </section>

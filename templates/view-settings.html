@@ -1,0 +1,104 @@
+<!--
+  ============================================================================
+  HIGHWAYPULSE — APPLICATION SETTINGS & DATA MANAGEMENT (templates/view-settings.html)
+  ============================================================================
+  PURPOSE & FUNCTIONALITY:
+  User configuration and data persistence management view.
+  Features included in this template:
+  - UI theme selector (Light Mode default or Dark Mode)
+  - Default opening view and table pagination page size controls
+  - Heuristic formula weight sliders for custom prioritization fine-tuning
+  - Raw JSON backup export & restore tools for LocalStorage data
+  - Reset sample data button with confirmation safeguard
+  - Prominent project ZIP download button
+  - Controlled and updated by js/settings.js
+  ============================================================================
+-->
+<section id="view-settings" class="view-section">
+          <div class="grid grid-cols-1 gap-4" style="max-width: 800px;">
+            <!-- Display Preferences -->
+            <div class="card">
+              <h3 class="card-title mb-1">Display & Interface Preferences</h3>
+              <p class="card-subtitle mb-3">Configure layout options and local display settings</p>
+
+              <div class="form-group mb-3">
+                <label class="form-label" for="settings-theme-select">Interface Theme</label>
+                <select id="settings-theme-select" class="form-select text-xs" style="max-width: 250px;">
+                  <option value="light">Light Mode (Default)</option>
+                  <option value="dark">Dark Mode</option>
+                </select>
+              </div>
+
+              <div class="form-group mb-3">
+                <label class="form-label" for="settings-default-view">Default Landing Section</label>
+                <select id="settings-default-view" class="form-select text-xs" style="max-width: 250px;">
+                  <option value="overview">Overview Dashboard</option>
+                  <option value="map">Highway Geographic Map</option>
+                  <option value="defects">Defect Management</option>
+                  <option value="planner">Maintenance Planner</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="settings-page-size">Default Defects Table Page Size</label>
+                <select id="settings-page-size" class="form-select text-xs" style="max-width: 250px;">
+                  <option value="10">10 records per page</option>
+                  <option value="25">25 records per page</option>
+                  <option value="50">50 records per page</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Prioritization Formula Weight Configuration -->
+            <div class="card">
+              <h3 class="card-title mb-1">Multi-Criteria Prioritization Weights</h3>
+              <p class="card-subtitle mb-3">Transparent breakdown of the active scoring weights</p>
+
+              <div class="p-3 bg-surface-subtle rounded border text-xs">
+                <div class="flex justify-between py-1 border-b">
+                  <span><strong>1. Severity Weight:</strong> Physical deterioration degree</span>
+                  <span class="font-mono font-bold text-blue">40% (0.40)</span>
+                </div>
+                <div class="flex justify-between py-1 border-b">
+                  <span><strong>2. Traffic Exposure Weight:</strong> Vehicle volume & speed</span>
+                  <span class="font-mono font-bold text-blue">25% (0.25)</span>
+                </div>
+                <div class="flex justify-between py-1 border-b">
+                  <span><strong>3. Safety Risk Weight:</strong> Accident threat probability</span>
+                  <span class="font-mono font-bold text-blue">25% (0.25)</span>
+                </div>
+                <div class="flex justify-between py-1">
+                  <span><strong>4. Time Unresolved Weight:</strong> Hazard dwell penalty</span>
+                  <span class="font-mono font-bold text-blue">10% (0.10)</span>
+                </div>
+              </div>
+              <p class="text-2xs text-muted mt-2 italic">
+                * Fixed transparent weights maintain consistent deterministic evaluation across the entire corridor dataset.
+              </p>
+            </div>
+
+            <!-- Data Reset & Persistence -->
+            <div class="card">
+              <h3 class="card-title mb-1 text-red">Local Storage & Dataset Reset</h3>
+              <p class="card-subtitle mb-3">Manage local browser persistence and restore demonstration data</p>
+
+              <p class="text-xs text-slate mb-3">
+                All defect entries, status modifications, and work orders are stored in your browser's LocalStorage.
+                If you wish to return to the pristine fictional 36-defect baseline, use the restore button below.
+              </p>
+
+              <div class="flex gap-2 flex-wrap">
+                <a href="HighwayPulse.zip" download="HighwayPulse.zip" class="btn btn-sm btn-primary flex items-center gap-1" id="btn-download-project-zip">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                  <span>Download Complete Project ZIP</span>
+                </a>
+                <button class="btn btn-sm btn-outline" id="btn-export-raw-json">
+                  Download Full JSON Backup
+                </button>
+                <button class="btn btn-sm btn-danger-outline" id="btn-reset-sample-data">
+                  Restore Original Demonstration Data
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>

@@ -1,0 +1,87 @@
+<!--
+  ============================================================================
+  HIGHWAYPULSE — ANALYTICS & STATISTICAL CHARTS (templates/view-analytics.html)
+  ============================================================================
+  PURPOSE & FUNCTIONALITY:
+  Data visualization dashboard evaluating defect distribution and maintenance efficiency.
+  Features included in this template:
+  - Defect Status Breakdown donut chart canvas
+  - Severity by Highway Corridor horizontal bar chart canvas
+  - Defect Categories distribution pie chart canvas
+  - Priority Score vs Repair Cost quadrant scatter plot
+  - Controlled and updated by js/analytics.js
+  ============================================================================
+-->
+<section id="view-analytics" class="view-section">
+          <!-- Filter Toolbar -->
+          <div class="toolbar-card">
+            <div class="flex justify-between items-center flex-wrap gap-2">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-muted uppercase">Analysis Period:</span>
+                <select id="analytics-date-filter" class="form-select text-xs py-1" style="width: 160px;">
+                  <option value="all">All-Time Dataset</option>
+                  <option value="30">Last 30 Days</option>
+                  <option value="90">Last 90 Days</option>
+                  <option value="180">Last 6 Months</option>
+                </select>
+              </div>
+              <div class="flex gap-2">
+                <button class="btn btn-sm btn-outline" id="btn-analytics-export-csv">
+                  Export Defects CSV
+                </button>
+                <button class="btn btn-sm btn-outline" id="btn-analytics-export-tasks-csv">
+                  Export Tasks CSV
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Statistical Metrics Grid -->
+          <div class="analytics-metrics-grid" id="analytics-metrics-grid">
+            <!-- Populated via AnalyticsModule -->
+          </div>
+
+          <!-- Corridors Ranking & Category Analytics Grid -->
+          <div class="charts-grid">
+            <!-- Corridor Ranking Card -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Corridor Defect Frequency & Severity</h3>
+                  <p class="card-subtitle">Highway sections requiring highest maintenance attention</p>
+                </div>
+              </div>
+              <div class="table-responsive mb-3">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th class="text-center" style="width: 30px;">#</th>
+                      <th>Corridor / Section</th>
+                      <th class="text-center">Defects</th>
+                      <th class="text-center">Avg Score</th>
+                    </tr>
+                  </thead>
+                  <tbody id="corridor-ranking-tbody">
+                    <!-- Populated via AnalyticsModule -->
+                  </tbody>
+                </table>
+              </div>
+              <div class="chart-container" style="height: 180px;">
+                <canvas id="chart-analytics-corridors"></canvas>
+              </div>
+            </div>
+
+            <!-- Categories Breakdown Pie -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Defect Category Proportion</h3>
+                  <p class="card-subtitle">Relative breakdown of structural vs drainage vs signage distress</p>
+                </div>
+              </div>
+              <div class="chart-container" style="height: 320px;">
+                <canvas id="chart-analytics-categories"></canvas>
+              </div>
+            </div>
+          </div>
+        </section>

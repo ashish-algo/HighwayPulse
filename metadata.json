@@ -1,0 +1,6 @@
+{
+  "name": "HighwayPulse",
+  "description": "Highway Defect Prioritization & Maintenance Planning Dashboard — An engineering dashboard for logging, evaluating, and planning highway defect repairs with transparent heuristic scoring and geographic tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

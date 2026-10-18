@@ -1,0 +1,58 @@
+<!--
+  ============================================================================
+  HIGHWAYPULSE — GEOGRAPHIC GIS MAP VIEW (templates/view-map.html)
+  ============================================================================
+  PURPOSE & FUNCTIONALITY:
+  Interactive Leaflet GIS map displaying highway defect locations.
+  Features included in this template:
+  - Highway corridor selector pills (All Corridors, I-95, I-80, I-10, US-101, etc.)
+  - Quick filters for defect severity and repair workflow status
+  - Interactive Leaflet map canvas container (#highway-map)
+  - Color-coded severity legend (Critical, High, Medium, Low)
+  - Inspection overlay drawer for selected defect details
+  - Controlled and updated by js/map.js
+  ============================================================================
+-->
+<section id="view-map" class="view-section">
+          <div class="map-view-container">
+            <div class="map-toolbar">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-xs font-bold text-muted uppercase">Filter Pins:</span>
+                <select id="map-filter-priority" class="form-select text-xs py-1" style="width: 140px;">
+                  <option value="all">All Priorities</option>
+                  <option value="Critical">Critical Only</option>
+                  <option value="High">High Only</option>
+                  <option value="Medium">Medium Only</option>
+                  <option value="Low">Low Only</option>
+                </select>
+
+                <select id="map-filter-status" class="form-select text-xs py-1" style="width: 140px;">
+                  <option value="all">All Statuses</option>
+                  <option value="Open">Open</option>
+                  <option value="Under Review">Under Review</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Resolved">Resolved</option>
+                </select>
+
+                <button class="btn btn-xs btn-outline" id="btn-reset-map-filters">Reset Map</button>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <span class="text-xs text-muted" id="map-visible-count">Plotting markers...</span>
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="flex items-center gap-1"><span style="color:#dc2626">●</span> Critical</span>
+                  <span class="flex items-center gap-1"><span style="color:#ea580c">●</span> High</span>
+                  <span class="flex items-center gap-1"><span style="color:#2563eb">●</span> Medium</span>
+                  <span class="flex items-center gap-1"><span style="color:#64748b">●</span> Low</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Leaflet Container -->
+            <div id="highway-map" class="map-canvas"></div>
+            
+            <p class="text-2xs text-muted mt-2">
+              * Note: Coordinates and highway markers are illustrative sample data for demonstration. Markers link to detailed inspect views.
+            </p>
+          </div>
+        </section>
